@@ -2,7 +2,6 @@
 import _ from "underscore";
 import { crearDeck } from "./usecases/crear-deck";
 
-const miModulo = (() => {
   "use strict";
 
   let deck = [];
@@ -19,7 +18,9 @@ const miModulo = (() => {
     divCartasJugador = document.querySelectorAll(".divCartas");
 
   const inicializarJuego = (numJugadores = 2) => {
-    deck = crearDeck();
+    deck = crearDeck(tipos,especiales);
+    console.log(deck);
+    
     puntosJugadores = [];
     for (let i = 0; i < numJugadores; i++) {
       puntosJugadores.push(0);
@@ -49,7 +50,7 @@ const miModulo = (() => {
 
   const crearCarta = (carta, turno) => {
     const imgCarta = document.createElement("img");
-    imgCarta.src = `assets/cartas/${carta}.png`;
+    imgCarta.src = `./assets/cartas/${carta}.png`;
     imgCarta.classList.add("carta");
     divCartasJugador[turno].append(imgCarta);
   };
@@ -117,14 +118,8 @@ const miModulo = (() => {
     }, 1000);
   };
 
-  /*  btnNuevo.addEventListener('click',()=>{
+   btnNuevo.addEventListener('click',()=>{
         inicializarJuego();
     
-    }); */
+    });
 
-  return {
-    nuevoJuego: inicializarJuego,
-  };
-})();
-
-export default miModulo;
