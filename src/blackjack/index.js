@@ -1,6 +1,7 @@
 
 import _ from "underscore";
-import { crearDeck } from "./usecases/crear-deck";
+import { pedirCarta,valorCarta,crearDeck } from "./usecases";
+
 
   "use strict";
 
@@ -35,12 +36,7 @@ import { crearDeck } from "./usecases/crear-deck";
   };
  
 
-  const pedirCarta = () => {
-    if (deck.length === 0) {
-      throw "No hay mas cartas en el deck";
-    }
-    return deck.pop();
-  };
+
 
   const acumularPuntos = (carta, turno) => {
     puntosJugadores[turno] = puntosJugadores[turno] + valorCarta(carta);
@@ -57,7 +53,7 @@ import { crearDeck } from "./usecases/crear-deck";
   const turnoComputadora = (puntosMinimos) => {
     let puntosComputadora = 0;
     do {
-      const carta = pedirCarta();
+      const carta = pedirCarta(deck);
 
       puntosComputadora = acumularPuntos(carta, puntosJugadores.length - 1);
 
@@ -69,15 +65,11 @@ import { crearDeck } from "./usecases/crear-deck";
     } while (puntosComputadora > puntosMinimos && puntosComputadora < 21);
     determinarGanador();
   };
-  const valorCarta = (carta) => {
-    const valor = carta.substring(0, carta.length - 1);
 
-    return isNaN(valor) ? (valor === "A" ? 11 : 10) : valor * 1;
-  };
 
   // eventos
   btnPedir.addEventListener("click", () => {
-    const carta = pedirCarta();
+    const carta = pedirCarta(deck);
 
     const puntosJugador = acumularPuntos(carta, 0);
 
