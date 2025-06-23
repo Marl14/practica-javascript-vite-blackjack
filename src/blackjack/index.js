@@ -36,37 +36,6 @@ import { pedirCarta,valorCarta,crearDeck } from "./usecases";
   };
  
 
-
-
-  const acumularPuntos = (carta, turno) => {
-    puntosJugadores[turno] = puntosJugadores[turno] + valorCarta(carta);
-    marcadores[turno].innerText = puntosJugadores[turno];
-    return puntosJugadores[turno];
-  };
-
-  const crearCarta = (carta, turno) => {
-    const imgCarta = document.createElement("img");
-    imgCarta.src = `./assets/cartas/${carta}.png`;
-    imgCarta.classList.add("carta");
-    divCartasJugador[turno].append(imgCarta);
-  };
-  const turnoComputadora = (puntosMinimos) => {
-    let puntosComputadora = 0;
-    do {
-      const carta = pedirCarta(deck);
-
-      puntosComputadora = acumularPuntos(carta, puntosJugadores.length - 1);
-
-      crearCarta(carta, puntosJugadores.length - 1);
-
-      if (puntosMinimos > 21) {
-        break;
-      }
-    } while (puntosComputadora > puntosMinimos && puntosComputadora < 21);
-    determinarGanador();
-  };
-
-
   // eventos
   btnPedir.addEventListener("click", () => {
     const carta = pedirCarta(deck);
