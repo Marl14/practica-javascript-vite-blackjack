@@ -1,6 +1,6 @@
 
 import _ from "underscore";
-import { pedirCarta,valorCarta,crearDeck } from "./usecases";
+import { pedirCarta,crearDeck,acumularPuntos, crearCarta, turnoComputadora} from "./usecases";
 
 
   "use strict";
@@ -40,47 +40,30 @@ import { pedirCarta,valorCarta,crearDeck } from "./usecases";
   btnPedir.addEventListener("click", () => {
     const carta = pedirCarta(deck);
 
-    const puntosJugador = acumularPuntos(carta, 0);
+    const puntosJugador = acumularPuntos(carta, 0,puntosJugadores);
 
-    crearCarta(carta, 0);
+    const imgCarta=crearCarta(carta);
+    divCartasJugador[0].append(imgCarta);
 
     if (puntosJugador > 21) {
       console.warn("Lo siento, has perdido");
       btnPedir.disabled = true;
       btnDetener.disabled = true;
-      turnoComputadora(puntosJugador);
+      turnoComputadora(puntosJugador,deck,puntosJugadores,divCartasJugador);
     } else if (puntosJugador === 21) {
       console.warn("21, genial!");
       btnPedir.disabled = true;
       btnDetener.disabled = true;
-      turnoComputadora(puntosJugador);
+      turnoComputadora(puntosJugador,deck,puntosJugadores,divCartasJugador);
     }
   });
   btnDetener.addEventListener("click", () => {
     btnPedir.disabled = true;
     btnDetener.disabled = true;
-    turnoComputadora(puntosJugadores[0]);
+    turnoComputadora(puntosJugadores[0],deck,puntosJugadores,divCartasJugador);
   });
 
-  const determinarGanador = () => {
-    const [puntosMinimos, puntosComputadora] = puntosJugadores;
-    setTimeout(() => {
-      if (puntosMinimos > 21) {
-        alert("Lo siento, has perdido");
-      } else if (puntosComputadora > 21) {
-        alert("Felicidades, has ganado");
-      } else if (puntosMinimos === puntosComputadora) {
-        alert("Nadie gana, es un empate");
-      } else if (puntosMinimos < puntosComputadora) {
-        alert("Lo siento, has perdido");
-      } else {
-        alert("Felicidades, has ganado");
-      }
-    }, 1000);
-  };
-
-   btnNuevo.addEventListener('click',()=>{
-        inicializarJuego();
-    
-    });
+    btnNuevo.addEventListener('click',()=>{
+      inicializarJuego();
+  });
 
