@@ -40,7 +40,7 @@ import { pedirCarta,crearDeck,acumularPuntos, crearCarta, turnoComputadora} from
   btnPedir.addEventListener("click", () => {
     const carta = pedirCarta(deck);
 
-    const puntosJugador = acumularPuntos(carta, 0,puntosJugadores);
+    const puntosJugador = acumularPuntos(carta,0,puntosJugadores);
 
     const imgCarta=crearCarta(carta);
     divCartasJugador[0].append(imgCarta);
@@ -57,6 +57,7 @@ import { pedirCarta,crearDeck,acumularPuntos, crearCarta, turnoComputadora} from
       turnoComputadora(puntosJugador,deck,puntosJugadores,divCartasJugador);
     }
   });
+  
   btnDetener.addEventListener("click", () => {
     btnPedir.disabled = true;
     btnDetener.disabled = true;

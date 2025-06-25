@@ -9,9 +9,12 @@ import { valorCarta } from "./valor-carta";
  */
 
  export const acumularPuntos = (carta, turno, puntosJugadores) => {
+  
     if(!carta)throw new Error('La carta es necesaria');
-    if(!turno)throw new Error('El turno es necesario');
+    //if(!turno)throw new Error('El turno es necesario');
     if(!puntosJugadores || puntosJugadores.length ==0 )throw new Error('Los puntos son necesarios');
+
+    const marcadores = document.querySelectorAll("small");
 
     puntosJugadores[turno] = puntosJugadores[turno] + valorCarta(carta);
     marcadores[turno].innerText = puntosJugadores[turno];
